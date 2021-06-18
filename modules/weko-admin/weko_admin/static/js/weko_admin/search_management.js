@@ -1,3 +1,4 @@
+//＊admin>setting>search　詳細検索設定の画面で使われるジャバスクリプト
 const SPECIFIC_INDEX_VALUE = '1';
 (function (angular) {
   // Bootstrap it!
@@ -57,7 +58,7 @@ const SPECIFIC_INDEX_VALUE = '1';
                     '<button type="button" class="close" data-dismiss="alert">' +
                     '&times;</button>' + message + '</div>');
         }
-
+//↓追加だけした
       $scope.popEdit=function(data){
         alert("edit")
       }
@@ -73,7 +74,7 @@ const SPECIFIC_INDEX_VALUE = '1';
       $scope.deletecontentsvalue=function(){
         alert("delete")
       }
-       
+//↑ここまで       
 
       $scope.saveData=function(){
         var url = $location.path();

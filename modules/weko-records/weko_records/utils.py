@@ -32,7 +32,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.ext import pid_exists
 from invenio_pidstore.models import PersistentIdentifier
 from weko_schema_ui.schema import SchemaTree
-from .config import WEKO_TEST_FIELD, COPY_NEW_FIELD
+from .config import WEKO_TEST_FIELD, COPY_NEW_FIELD #DBからデータを取る代わりに使っている定数のインポート
 from .api import ItemTypes, Mapping
 
 from jsonpath_ng import jsonpath
@@ -40,7 +40,8 @@ from jsonpath_ng.ext import parse
 import xml.etree.ElementTree as ET
 from lxml import etree
 
-
+#＊アイテム登録時に使用されている関数
+#検索はdcの値を参照しているっぽい
 def json_loader(data, pid):
     """Convert the item data and mapping to jpcoar.
 
@@ -172,6 +173,7 @@ def json_loader(data, pid):
         # jrc.update(dict(relation=dict(relationType=relation_ar)))
         # dc.update(dict(relation=dict(relationType=relation_ar)))
 
+        #＊ここで値のコピーを行っている、WEKO_TEST_FIELDは現在config.pyを読んでいる、データベースに変える必要がある
         if COPY_NEW_FIELD:
             if is_edit:
                 copy_field_test(dc, WEKO_TEST_FIELD, jrc, oai_value)
@@ -222,6 +224,7 @@ def json_loader(data, pid):
     del ojson, mjson, item
     return dc, jrc, is_edit
 
+#＊
 def copy_field_test(dc, map, jrc, iid=None):
     if dc["item_type_id"] in map.keys():
         list1 = map[dc["item_type_id"]]
@@ -255,13 +258,15 @@ def get_value_from_dict(dc, path, path_type, iid=None):
         return copy_value_json_path(dc, path)
 
 def copy_value_xml_path(dc, xml_path, iid=None):
+    #XMLから値抽出
     from invenio_oaiserver.response import getrecord
     try:
         meta_prefix = xml_path[0]
         xpath = xml_path[1]
         if iid:
-            xml = etree.tostring(getrecord(metadataPrefix=meta_prefix, identifier=iid, verb='GetRecord',url = "https://192.168.75.3/oai"))    
+            xml = etree.tostring(getrecord(metadataPrefix=meta_prefix, identifier=iid, verb='GetRecord',url = "https://192.168.75.3/oai"))    #XML取得,urlはurl_for('invenio_oaiserver.response', _external=True)で取得できるもの
             root = ET.fromstring(xml)
+            #名前空間辞書
             ns={
                 'oai_dc':'http://www.openarchives.org/OAI/2.0/oai_dc/',
                 'dc':'http://purl.org/dc/elements/1.1/',
@@ -269,12 +274,13 @@ def copy_value_xml_path(dc, xml_path, iid=None):
                 'xml':'http://www.w3.org/XML/1998/namespace'
                 }
             copy_value = root.findall(xpath,ns)[0].text
-            return copy_value
+            return str(copy_value)
     except Exception:
         return None
 
 
 def copy_value_json_path(dc, path):
+    #jsonから値を抽出
     try:
         matches = parse(path).find(dc)
         match_value = [match.value for match in matches]

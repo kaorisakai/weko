@@ -17,6 +17,7 @@
 # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston,
 # MA 02111-1307, USA.
 #}
+<!--＊adminのsetting→search画面です-->
 
 {%- extends admin_base_template %}
 
@@ -209,7 +210,6 @@
                 <tr ng-repeat = "option_condition in dataJson.detail_condition track by $index">
                   <td >
                     <div class="col-sm-12 col-md-12 col-md-12">
-                      1
                         <label>
                           <input type="checkbox" id="chk_useable_[[$index]]" value="option_condition.id" ng-model="option_condition.useable_status" >
                         </label>
@@ -217,8 +217,8 @@
                   </td>
                   <td >
                     <div class="col-sm-12 col-md-12 col-md-12">
-                      2
                       {{_('[[option_condition.contents]]')}}
+                      <!--＊作業中↓-->
                       <button type="button" class="btn btn-success
                             ten-pixel-right-margin ten-pixel-bottom-margin"
                             style="position:unset; float: right;" 
@@ -263,18 +263,17 @@
                         <span class="glyphicon glyphicon-edit"></span>&nbsp;
                         {{_('Save')}}
                       </button>
+                      <!--＊作業中↑-->
                       </div>
                     </div>
                   </td>
                   <td >
                     <div class="col-sm-12 col-md-12 col-md-12">
-                      3
                       <p ng-repeat = "option_condition_mapping in option_condition.mapping track by $index">[[option_condition_mapping]]</p>
                     </div>
                   </td>
                   <td >
                     <div class="col-sm-12 col-md-12 col-md-12">
-                      4
                         <label>
                           <input type="checkbox" id="chk_init_[[$index]]" value="option_condition.id" ng-model="option_condition.default_display" >
                         </label>

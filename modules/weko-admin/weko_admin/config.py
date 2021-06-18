@@ -328,6 +328,7 @@ WEKO_ADMIN_MANAGEMENT_OPTIONS = {
         'init_disp_index_disp_method': '0',
         'init_disp_index': ''
     },
+    #＊詳細検索に使用する設定、データが登録されていない場合参照される
     'detail_condition': [
         {'id': 'title',
          'contents': 'Title',
@@ -736,14 +737,14 @@ WEKO_ADMIN_MANAGEMENT_OPTIONS = {
         'mappingFlg':False,
         'mappingName':''},
     
-
-        {'id': 'integer_range1',
-         'contents': 'integer_range1',
-         'contents_value':{'en':'integer_EN_1', 'ja':'integer_JA_1'},
+    #＊説明
+        {'id': 'integer_range1',#id, 変更すると取ってこようとするurl等が変わる
+         'contents': 'integer_range1',#現在の詳細検索の項目、詳細検索画面、詳細検索設定画面等で使用・wekotehemeのsearch_detail.jsを参照
+         'contents_value':{'en':'integer_EN_1', 'ja':'integer_JA_1'},#言語に対応するために追加しようとした項目・wekotehemeのsearch_detail.jsを参照
          'useable_status': True,
          'mapping': [],
-         'default_display':True,
-         'inputType':'range',
+         'default_display':True,#Trueなら詳細検索の項目として表示される
+         'inputType':'range',#入力タイプ、どのような入力画面になるかhtml（weko_theme/templates/weko_theme/body_search_detail_new.html）の場合分けに使われる
          'inputVal_from':'',
          'inputVal_to':'',
          'mappingFlg':False,
@@ -909,10 +910,8 @@ WEKO_ADMIN_MANAGEMENT_OPTIONS = {
          'mapping': [],
          'default_display':True,
          'inputType':'geo_distance',
-         'inputVal_east':'',
-         'inputVal_west':'',
-         'inputVal_south':'',
-         'inputVal_north':'',
+         'inputVal_lat':'',
+         'inputVal_lon':'',
          'mappingFlg':False,
          'mappingName':''},
     ]

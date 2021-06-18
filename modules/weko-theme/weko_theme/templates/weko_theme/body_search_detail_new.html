@@ -8,7 +8,8 @@ See the GNU # General Public License for more details. # # You should have recei
 License # along with WEKO3; if not, write to the # Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, #
 MA 02111-1307,
 USA. #}
-<input type="hidden" value="{{current_i18n.language}}" id="currentLanguage">
+<!--＊詳細検索画面-->
+<input type="hidden" value="{{current_i18n.language}}" id="currentLanguage"><!--←使用中の言語をジャバスクリプトに渡してみた-->
 <div ng-init="initData('{{detail_condition}}')" class="panel panel-default">
   <div class="panel-body">
     <div class="container testimonial-group">
@@ -27,7 +28,7 @@ USA. #}
                 </select>
               </label>
               <div class="col-xs-10">
-                <!--input_type is text sta-->
+                <!--input_type is text sta--><!--インプットタイプごとに入力フォームが変わるようになっている-->
                 <input ng-if="sub_data.key_value.inputType=='text'" type="text" class="form-control detail-search-text"
                   id="sele_[[$index]]" ng-model="sub_data.key_value.inputVal" placeholder="{{_('Enter Input Value')}}" />
                 <!--input_type is text end-->

@@ -1,5 +1,6 @@
 (function (angular) {
     // Bootstrap it!
+    //＊詳細検索画面で使用するジャバスクリプトです
     angular.element(document).ready(function () {
         angular.module('searchDetail.controllers', []);
         function searchDetailCtrl($scope, $rootScope, $http, $location) {
@@ -26,6 +27,7 @@
                             disabled_flg: false
                         };
                         obj_key.id = item.id;
+                        // ＊ここから詳細検索の項目名を設定している、これはcontents_valueに使用している言語のものがあればそれ、無ければcontentsを取ってくるようにした
                         if (item.contents_value){
                             if (item.contents_value[$scope.currentLanguage]){
                                 obj_key.contents = item.contents_value[$scope.currentLanguage];}
@@ -33,8 +35,9 @@
                                 obj_key.contents = item.contents
                             }}
                         else{
-                            obj_key.contents = item.contents
+                            obj_key.contents = item.contents //もとはこれだけ
                         }
+                        //＊ここまで
                         obj_key.inx = index;
                         $scope.detail_search_key.push(obj_key);
                     };
